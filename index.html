@@ -4,8 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <meta name="theme-color" content="#0052A4" />
-  <meta name="description" content="Angelia Clinic — Results, Needs & Vision. View our ministry booklet online." />
-  <title>Angelia Clinic — Needs & Vision</title>
+  <meta name="description" content="Angelia Clinic — English booklet online: our story and ministry needs." />
+  <title>Angelia Clinic — Booklet Online</title>
   <link rel="icon" href="assets/logo.png" type="image/png" />
   <style>
     @font-face { font-family: 'Cormorant Garamond'; src: url('fonts/CG-600.ttf') format('truetype'); font-weight: 600; font-style: normal; font-display: swap; }
@@ -23,7 +23,7 @@
       --brand-soft: #e8f1fb;
       --ink: #0f1c2e;
       --muted: #5a6b7d;
-      --paper: #f3f6fa;
+      --paper: #eef2f7;
       --white: #ffffff;
       --line: rgba(0, 82, 164, 0.14);
       --gold: #c4a574;
@@ -40,621 +40,747 @@
       -webkit-font-smoothing: antialiased;
     }
     a { color: inherit; }
+    img { max-width: 100%; display: block; }
+
+    .shell { min-height: 100vh; display: flex; flex-direction: column; }
 
     .top {
-      position: sticky;
-      top: 0;
-      z-index: 50;
+      position: sticky; top: 0; z-index: 50;
       background: linear-gradient(135deg, var(--brand), var(--brand-deep));
       color: #fff;
-      padding: 12px 16px calc(10px + env(safe-area-inset-top, 0px));
-      box-shadow: 0 8px 24px rgba(0,61,122,.25);
+      padding: 12px 16px;
+      padding-top: calc(12px + env(safe-area-inset-top, 0px));
+      box-shadow: 0 8px 24px rgba(0,61,122,.22);
     }
     .top-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      max-width: 880px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
     }
-    .top .logo { height: 28px; width: auto; display: block; }
+    .top .logo { height: 28px; width: auto; }
     .top .tag {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .08em;
-      text-transform: uppercase;
-      opacity: .85;
-      text-align: right;
+      font-size: 11px; font-weight: 700; letter-spacing: .08em;
+      text-transform: uppercase; opacity: .88; text-align: right;
     }
 
-    .nav {
-      position: sticky;
-      top: 52px;
-      z-index: 40;
-      background: rgba(255,255,255,.94);
-      backdrop-filter: blur(10px);
+    .mode {
+      position: sticky; top: 52px; z-index: 45;
+      background: rgba(255,255,255,.96);
+      backdrop-filter: blur(12px);
       border-bottom: 1px solid var(--line);
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
+      padding: 10px 14px;
     }
-    .nav::-webkit-scrollbar { display: none; }
-    .nav-inner {
-      max-width: 720px;
-      margin: 0 auto;
-      display: flex;
-      gap: 6px;
-      padding: 10px 12px;
-      width: max-content;
-      min-width: 100%;
+    .mode-inner {
+      max-width: 880px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 8px;
     }
-    .nav a {
-      flex: 0 0 auto;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: var(--brand);
-      background: var(--brand-soft);
-      border: 1px solid transparent;
-      padding: 8px 12px;
-      border-radius: 999px;
-      white-space: nowrap;
+    .mode button {
+      appearance: none; border: 1px solid rgba(0,82,164,.18);
+      background: #fff; color: var(--brand);
+      font: 800 12px/1.2 Manrope, sans-serif;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 12px 10px; border-radius: 12px; cursor: pointer;
+      transition: background .15s, color .15s, border-color .15s;
     }
-    .nav a:hover, .nav a:focus-visible {
-      border-color: rgba(0,82,164,.25);
-      outline: none;
+    .mode button small {
+      display: block; margin-top: 4px;
+      font-size: 10px; font-weight: 600; letter-spacing: .02em;
+      text-transform: none; opacity: .7;
     }
+    .mode button[aria-selected="true"] {
+      background: var(--brand); color: #fff; border-color: var(--brand);
+    }
+    .mode button[aria-selected="true"] small { opacity: .85; color: #fff; }
 
-    main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 16px 14px calc(88px + var(--safe-bottom));
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
+    .view { display: none; flex: 1; }
+    .view.active { display: block; }
 
-    .hero {
+    /* ——— STORY ——— */
+    .story-wrap {
+      max-width: 880px; margin: 0 auto;
+      padding: 16px 14px calc(100px + var(--safe-bottom));
+    }
+    .story-intro {
       background: var(--white);
       border: 1px solid var(--line);
       border-radius: 18px;
-      padding: 22px 18px;
+      padding: 18px 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 10px 28px rgba(15,28,46,.05);
+    }
+    .story-intro h1 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(26px, 6vw, 36px);
+      font-weight: 700; line-height: 1.1; color: var(--brand);
+      margin-bottom: 6px;
+    }
+    .story-intro p { color: var(--muted); font-size: 14px; }
+    .story-actions {
+      display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; justify-content: center;
+      text-decoration: none; border-radius: 999px;
+      font: 800 12px/1 Manrope, sans-serif;
+      letter-spacing: .06em; text-transform: uppercase;
+      padding: 11px 16px;
+    }
+    .btn-primary { background: var(--brand); color: #fff; }
+    .btn-ghost {
+      background: var(--brand-soft); color: var(--brand);
+      border: 1px solid rgba(0,82,164,.12);
+    }
+
+    .pager {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 10px; margin-bottom: 12px;
+    }
+    .pager .label {
+      font-size: 12px; font-weight: 800; letter-spacing: .08em;
+      text-transform: uppercase; color: var(--brand);
+    }
+    .pager .controls { display: flex; gap: 8px; }
+    .pager button {
+      width: 42px; height: 42px; border-radius: 50%;
+      border: 1px solid rgba(0,82,164,.2);
+      background: #fff; color: var(--brand);
+      font-size: 18px; cursor: pointer;
+    }
+    .pager button:disabled { opacity: .35; cursor: default; }
+
+    .stage {
+      background: #0b1a2e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 18px 40px rgba(15,28,46,.18);
+      position: relative;
+    }
+    .stage-track {
+      display: flex;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+    }
+    .stage-track::-webkit-scrollbar { display: none; }
+    .stage-page {
+      flex: 0 0 100%;
+      scroll-snap-align: start;
+      background: #0b1a2e;
+    }
+    .stage-page img {
+      width: 100%; height: auto;
+      margin: 0 auto;
+    }
+    .dots {
+      display: flex; justify-content: center; gap: 8px;
+      margin-top: 12px;
+    }
+    .dots button {
+      width: 8px; height: 8px; border-radius: 50%;
+      border: none; background: rgba(0,82,164,.25); cursor: pointer;
+      padding: 0;
+    }
+    .dots button[aria-current="true"] {
+      background: var(--brand); width: 22px; border-radius: 999px;
+    }
+    .story-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .story-thumbs button {
+      border: 2px solid transparent;
+      border-radius: 10px;
+      overflow: hidden;
+      padding: 0; background: #fff; cursor: pointer;
+    }
+    .story-thumbs button[aria-current="true"] {
+      border-color: var(--brand);
+    }
+    .story-thumbs img { width: 100%; height: auto; }
+
+    .bridge {
+      margin-top: 18px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      color: #fff;
+      border-radius: 18px;
+      padding: 18px 16px;
+    }
+    .bridge h2 {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: 26px; font-weight: 700; margin-bottom: 6px;
+    }
+    .bridge p { font-size: 14px; opacity: .92; margin-bottom: 12px; }
+    .bridge .btn-primary { background: #fff; color: var(--brand); }
+
+    /* ——— NEEDS ——— */
+    .needs-nav {
+      position: sticky; top: 118px; z-index: 40;
+      background: rgba(255,255,255,.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      overflow-x: auto; scrollbar-width: none;
+    }
+    .needs-nav::-webkit-scrollbar { display: none; }
+    .needs-nav-inner {
+      max-width: 880px; margin: 0 auto;
+      display: flex; gap: 6px; padding: 10px 12px;
+      width: max-content; min-width: 100%;
+    }
+    .needs-nav a {
+      flex: 0 0 auto; text-decoration: none;
+      font-size: 12px; font-weight: 800; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--brand);
+      background: var(--brand-soft); padding: 8px 12px;
+      border-radius: 999px; white-space: nowrap;
+    }
+
+    main.needs-main {
+      max-width: 720px; margin: 0 auto;
+      padding: 16px 14px calc(88px + var(--safe-bottom));
+      display: flex; flex-direction: column; gap: 16px;
+    }
+    .hero {
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: 18px; padding: 22px 18px;
       box-shadow: 0 10px 28px rgba(15,28,46,.06);
     }
     .hero h1 {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(28px, 7vw, 40px);
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--brand);
-      margin-bottom: 8px;
+      font-size: clamp(28px, 7vw, 40px); font-weight: 700;
+      line-height: 1.1; color: var(--brand); margin-bottom: 8px;
     }
     .hero p { color: var(--muted); font-size: 15px; }
 
     .block {
-      background: var(--white);
-      border: 1px solid var(--line);
-      border-radius: 18px;
-      padding: 20px 16px 18px;
+      background: var(--white); border: 1px solid var(--line);
+      border-radius: 18px; padding: 20px 16px 18px;
       box-shadow: 0 10px 28px rgba(15,28,46,.05);
-      scroll-margin-top: 120px;
+      scroll-margin-top: 180px;
     }
     .colnum {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--brand);
-      margin-bottom: 8px;
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 12px; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--brand); margin-bottom: 8px;
     }
-    .colnum::before {
-      content: '';
-      width: 18px;
-      height: 3px;
-      background: var(--gold);
-    }
+    .colnum::before { content: ''; width: 18px; height: 3px; background: var(--gold); }
     .col-title {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: clamp(26px, 6vw, 34px);
-      font-weight: 700;
-      line-height: 1.08;
-      margin-bottom: 12px;
+      font-size: clamp(26px, 6vw, 34px); font-weight: 700;
+      line-height: 1.08; margin-bottom: 12px;
     }
     .body { font-size: 15px; color: var(--muted); margin-bottom: 12px; }
     .body strong { color: var(--ink); }
     .hook {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 18px;
-      font-style: italic;
-      line-height: 1.35;
-      color: var(--ink);
+      font-size: 18px; font-style: italic; line-height: 1.35; color: var(--ink);
       background: linear-gradient(135deg, #fff, var(--brand-soft));
-      border: 1px solid var(--line);
-      border-left: 4px solid var(--gold);
-      border-radius: 0 12px 12px 0;
-      padding: 12px 14px;
-      margin-bottom: 12px;
+      border: 1px solid var(--line); border-left: 4px solid var(--gold);
+      border-radius: 0 12px 12px 0; padding: 12px 14px; margin-bottom: 12px;
     }
     .sect {
-      font-size: 12px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--brand);
-      margin: 14px 0 8px;
+      font-size: 12px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--brand); margin: 14px 0 8px;
     }
-
-    .stats {
-      display: grid;
-      gap: 8px;
-      margin: 12px 0;
-    }
+    .stats { display: grid; gap: 8px; margin: 12px 0; }
     .stats.cols-2 { grid-template-columns: 1fr 1fr; }
     .stats.cols-3 { grid-template-columns: repeat(3, 1fr); }
-    @media (max-width: 420px) {
-      .stats.cols-3 { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 420px) { .stats.cols-3 { grid-template-columns: 1fr; } }
     .stats .cell {
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 12px;
-      padding: 14px 10px;
-      text-align: center;
+      background: #fff; border: 1px solid var(--line);
+      border-radius: 12px; padding: 14px 10px; text-align: center;
     }
     .stats .num {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
-      color: var(--brand);
-      line-height: 1;
-      margin-bottom: 4px;
+      font-size: 28px; font-weight: 700; color: var(--brand);
+      line-height: 1; margin-bottom: 4px;
     }
     .stats .lbl {
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: .04em;
-      text-transform: uppercase;
-      color: var(--muted);
-      line-height: 1.25;
+      font-size: 11px; font-weight: 700; letter-spacing: .04em;
+      text-transform: uppercase; color: var(--muted); line-height: 1.25;
     }
-
     .ask {
       background: linear-gradient(135deg, var(--brand), var(--brand-deep));
-      color: #fff;
-      border-radius: 14px;
-      padding: 16px;
-      margin-top: 12px;
-      position: relative;
-      overflow: hidden;
+      color: #fff; border-radius: 14px; padding: 16px; margin-top: 12px;
+      position: relative; overflow: hidden;
     }
     .ask::after {
-      content: '';
-      position: absolute;
-      right: -10%; top: -60%;
-      width: 40%; height: 220%;
-      background: rgba(255,255,255,.08);
+      content: ''; position: absolute; right: -10%; top: -60%;
+      width: 40%; height: 220%; background: rgba(255,255,255,.08);
       transform: rotate(18deg);
     }
     .ask-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .12em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 4px;
-      position: relative;
-      z-index: 1;
+      font-size: 11px; font-weight: 800; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 4px;
+      position: relative; z-index: 1;
     }
     .ask-num {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 34px;
-      font-weight: 700;
-      line-height: 1;
-      margin-bottom: 6px;
-      position: relative;
-      z-index: 1;
+      font-size: 34px; font-weight: 700; line-height: 1; margin-bottom: 6px;
+      position: relative; z-index: 1;
     }
     .ask-sub {
-      font-size: 14px;
-      line-height: 1.4;
-      color: rgba(232,241,251,.92);
-      position: relative;
-      z-index: 1;
+      font-size: 14px; line-height: 1.4; color: rgba(232,241,251,.92);
+      position: relative; z-index: 1;
     }
     .qr-line {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      position: relative;
-      z-index: 1;
+      display: flex; align-items: center; gap: 14px;
+      position: relative; z-index: 1;
     }
     .qr-line img {
-      width: 88px;
-      height: 88px;
-      background: #fff;
-      border-radius: 10px;
-      padding: 4px;
-      flex-shrink: 0;
+      width: 88px; height: 88px; background: #fff;
+      border-radius: 10px; padding: 4px; flex-shrink: 0;
     }
-
     .progress { position: relative; z-index: 1; margin: 8px 0 6px; }
     .progress .track {
-      height: 10px;
-      border-radius: 999px;
-      background: rgba(255,255,255,.24);
-      overflow: hidden;
+      height: 10px; border-radius: 999px;
+      background: rgba(255,255,255,.24); overflow: hidden;
     }
     .progress .fill {
-      height: 100%;
-      width: 15.4%;
-      border-radius: 999px;
+      height: 100%; width: 15.4%; border-radius: 999px;
       background: linear-gradient(90deg, #a8e0ac, #6fc478);
     }
     .plabels {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 6px;
-      font-size: 11px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .04em;
-      color: rgba(255,255,255,.9);
+      display: flex; justify-content: space-between; margin-top: 6px;
+      font-size: 11px; font-weight: 700; text-transform: uppercase;
+      letter-spacing: .04em; color: rgba(255,255,255,.9);
     }
     .ps { display: block; margin-top: 6px; font-size: 13px; font-style: italic; opacity: .92; }
-
     .need-card {
-      margin-top: 12px;
-      border: 1px solid rgba(0,82,164,.18);
-      border-radius: 14px;
-      overflow: hidden;
-      background: #fff;
+      margin-top: 12px; border: 1px solid rgba(0,82,164,.18);
+      border-radius: 14px; overflow: hidden; background: #fff;
     }
     .need-head {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      padding: 12px 14px;
-      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
-      color: #fff;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 10px; padding: 12px 14px;
+      background: linear-gradient(135deg, var(--brand), var(--brand-deep)); color: #fff;
     }
     .need-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      color: var(--gold);
+      font-size: 11px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; color: var(--gold);
     }
     .need-price {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
+      font-size: 28px; font-weight: 700;
     }
     .need-list {
-      list-style: none;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px 12px;
-      padding: 14px;
+      list-style: none; display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px 12px; padding: 14px;
     }
-    @media (max-width: 480px) {
-      .need-list { grid-template-columns: 1fr; }
-    }
+    @media (max-width: 480px) { .need-list { grid-template-columns: 1fr; } }
     .need-list li {
-      font-size: 14px;
-      font-weight: 600;
-      display: flex;
-      gap: 8px;
-      align-items: flex-start;
+      font-size: 14px; font-weight: 600;
+      display: flex; gap: 8px; align-items: flex-start;
     }
     .need-list li::before {
-      content: '';
-      width: 6px; height: 6px;
-      margin-top: 7px;
-      border-radius: 50%;
-      background: var(--gold);
-      flex-shrink: 0;
+      content: ''; width: 6px; height: 6px; margin-top: 7px;
+      border-radius: 50%; background: var(--gold); flex-shrink: 0;
     }
-
     .row {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      background: #fff;
-      border: 1px solid var(--line);
-      border-radius: 10px;
-      padding: 11px 12px;
-      margin-bottom: 6px;
+      display: flex; justify-content: space-between; align-items: center;
+      gap: 12px; background: #fff; border: 1px solid var(--line);
+      border-radius: 10px; padding: 11px 12px; margin-bottom: 6px;
     }
     .row .n { font-size: 14px; font-weight: 600; line-height: 1.3; }
     .row .n small { display: block; font-size: 12px; font-weight: 500; color: var(--muted); }
     .row .p { font-size: 15px; font-weight: 800; color: var(--brand); white-space: nowrap; }
-
     .sum-box { display: flex; gap: 8px; margin-top: 10px; }
     .sum-item {
-      flex: 1;
-      background: linear-gradient(135deg, var(--brand), var(--brand-deep));
-      color: #fff;
-      border-radius: 12px;
-      padding: 14px;
+      flex: 1; background: linear-gradient(135deg, var(--brand), var(--brand-deep));
+      color: #fff; border-radius: 12px; padding: 14px;
     }
     .sum-item.gold { background: linear-gradient(135deg, #c4a574, #a8884f); }
     .sum-label {
-      font-size: 11px;
-      font-weight: 800;
-      letter-spacing: .1em;
-      text-transform: uppercase;
-      opacity: .85;
-      margin-bottom: 4px;
+      font-size: 11px; font-weight: 800; letter-spacing: .1em;
+      text-transform: uppercase; opacity: .85; margin-bottom: 4px;
     }
     .sum-val {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-size: 28px;
-      font-weight: 700;
-      line-height: 1;
+      font-size: 28px; font-weight: 700; line-height: 1;
     }
     .sum-hint { font-size: 12px; opacity: .8; margin-top: 4px; }
-
     .note-card, .verse {
-      margin-top: 12px;
-      border-left: 3px solid var(--gold);
-      padding: 10px 0 10px 12px;
-      font-size: 15px;
-      color: var(--muted);
+      margin-top: 12px; border-left: 3px solid var(--gold);
+      padding: 10px 0 10px 12px; font-size: 15px; color: var(--muted);
     }
     .verse {
       font-family: 'Cormorant Garamond', Georgia, serif;
-      font-style: italic;
-      color: var(--ink);
-      font-size: 16px;
+      font-style: italic; color: var(--ink); font-size: 16px;
     }
     .verse .ref {
-      display: inline-block;
-      margin-left: 4px;
-      font-family: Manrope, sans-serif;
-      font-style: normal;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      color: var(--brand);
+      display: inline-block; margin-left: 4px; font-family: Manrope, sans-serif;
+      font-style: normal; font-size: 12px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase; color: var(--brand);
     }
-    .note-card { border-left-color: var(--brand); background: linear-gradient(135deg, rgba(232,241,251,.85), #fff); border-radius: 0 12px 12px 0; padding: 12px 14px; border: 1px solid var(--line); border-left-width: 3px; }
+    .note-card {
+      border-left-color: var(--brand);
+      background: linear-gradient(135deg, rgba(232,241,251,.85), #fff);
+      border-radius: 0 12px 12px 0; padding: 12px 14px;
+      border: 1px solid var(--line); border-left-width: 3px;
+    }
     .note-card strong { color: var(--ink); }
-
     .footer {
-      text-align: center;
-      color: var(--muted);
-      font-size: 13px;
+      text-align: center; color: var(--muted); font-size: 13px;
       padding: 8px 8px 24px;
     }
-
     .fab {
-      position: fixed;
-      right: 16px;
-      bottom: calc(16px + var(--safe-bottom));
-      z-index: 60;
-      background: var(--brand);
-      color: #fff;
-      border: none;
-      border-radius: 999px;
-      padding: 12px 16px;
-      font: 800 12px/1 Manrope, sans-serif;
-      letter-spacing: .06em;
-      text-transform: uppercase;
-      box-shadow: 0 10px 24px rgba(0,61,122,.28);
-      cursor: pointer;
-      text-decoration: none;
+      position: fixed; right: 16px; bottom: calc(16px + var(--safe-bottom));
+      z-index: 60; background: var(--brand); color: #fff; border: none;
+      border-radius: 999px; padding: 12px 16px;
+      font: 800 12px/1 Manrope, sans-serif; letter-spacing: .06em;
+      text-transform: uppercase; box-shadow: 0 10px 24px rgba(0,61,122,.28);
+      cursor: pointer; text-decoration: none;
     }
 
     @media (min-width: 900px) {
-      .top { padding-top: 14px; }
-      .nav { top: 56px; }
-      .block { padding: 24px 22px; }
+      .mode { top: 56px; }
+      .needs-nav { top: 122px; }
+      .stage-page img { max-height: 78vh; width: auto; margin: 0 auto; }
     }
   </style>
 </head>
 <body>
-  <header class="top">
-    <div class="top-inner">
-      <img class="logo" src="assets/logo.png" alt="Angelia Clinic" />
-      <div class="tag">Results · Needs · Vision</div>
+  <div class="shell">
+    <header class="top">
+      <div class="top-inner">
+        <img class="logo" src="assets/logo.png" alt="Angelia Clinic" />
+        <div class="tag">English Booklet · Online</div>
+      </div>
+    </header>
+
+    <div class="mode" role="tablist" aria-label="Booklet sections">
+      <div class="mode-inner">
+        <button type="button" role="tab" id="tab-story" aria-selected="true" aria-controls="view-story" data-view="story">
+          Our Story
+          <small>A4 booklet · 4 pages</small>
+        </button>
+        <button type="button" role="tab" id="tab-needs" aria-selected="false" aria-controls="view-needs" data-view="needs">
+          Needs &amp; Vision
+          <small>Projects · equipment · giving</small>
+        </button>
+      </div>
     </div>
-  </header>
 
-  <nav class="nav" aria-label="Sections">
-    <div class="nav-inner">
-      <a href="#s01">01 Who we are</a>
-      <a href="#s02">02 Mobile Clinic</a>
-      <a href="#s03">03 911 + Orphans</a>
-      <a href="#s04">04 Psychiatry</a>
-      <a href="#s05">05 Dentistry</a>
-      <a href="#s06">06 Education</a>
-    </div>
-  </nav>
+    <!-- STORY VIEW -->
+    <section class="view active" id="view-story" role="tabpanel" aria-labelledby="tab-story">
+      <div class="story-wrap">
+        <div class="story-intro">
+          <h1>Restoring the joy of a healthy life</h1>
+          <p>Full English booklet — cover, orphans ministry, Project 911, and clinic directions. Swipe pages or use the arrows.</p>
+          <div class="story-actions">
+            <a class="btn btn-primary" href="files/Angelia_buklet_EN_A4.pdf" download>Download PDF</a>
+            <button type="button" class="btn btn-ghost" id="go-needs">Open Needs &amp; Vision →</button>
+          </div>
+        </div>
 
-  <main>
-    <section class="hero">
-      <h1>Angelia Clinic</h1>
-      <p>A clinic that looks to Christ — ministry results, urgent needs, and ways for you to take part.</p>
-    </section>
+        <div class="pager">
+          <div class="label" id="page-label">Page 1 / 4 · Cover</div>
+          <div class="controls">
+            <button type="button" id="prev" aria-label="Previous page">‹</button>
+            <button type="button" id="next" aria-label="Next page">›</button>
+          </div>
+        </div>
 
-    <!-- 01 -->
-    <section class="block" id="s01">
-      <div class="colnum">01 · Who we are</div>
-      <h2 class="col-title">A clinic that looks to Christ</h2>
-      <p class="hook">We do not fix our eyes on war, disasters, or crises — we look to Christ. Holding His hand, we extend the other to our neighbor.</p>
-      <p class="body">Behind every number and every dollar stands a <strong>person</strong> — with their own story, losses, fears, and hopes. Throughout the last four extremely difficult years, God has worked miracles through every department of the clinic and every member of our team.</p>
-      <div class="sect">Spiritual fruit of ministry</div>
-      <div class="stats cols-2">
-        <div class="cell"><div class="num">15,151</div><div class="lbl">People surveyed</div></div>
-        <div class="cell"><div class="num">6,184</div><div class="lbl">Asked for prayer support</div></div>
-        <div class="cell"><div class="num">3,359</div><div class="lbl">Agreed to Bible study</div></div>
-        <div class="cell"><div class="num">357</div><div class="lbl">Towns and villages</div></div>
-      </div>
-      <div class="ask">
-        <div class="ask-label">Support Us · Ukraine Crisis Fund</div>
-        <div class="qr-line">
-          <img src="assets/qr-support.png" alt="QR Support Us" />
-          <div class="ask-sub">Scan the QR code to become a part of what God is already doing. Next: projects, needs, and ways for you to take part →</div>
+        <div class="stage">
+          <div class="stage-track" id="track">
+            <div class="stage-page"><img src="assets/story/page-01.jpg" srcset="assets/story/page-01.jpg 1x, assets/story/page-01-hi.jpg 2x" alt="Cover — Restoring the joy of a healthy life" /></div>
+            <div class="stage-page"><img src="assets/story/page-02.jpg" srcset="assets/story/page-02.jpg 1x, assets/story/page-02-hi.jpg 2x" alt="Orphans Project" loading="lazy" /></div>
+            <div class="stage-page"><img src="assets/story/page-03.jpg" srcset="assets/story/page-03.jpg 1x, assets/story/page-03-hi.jpg 2x" alt="Project 911" loading="lazy" /></div>
+            <div class="stage-page"><img src="assets/story/page-04.jpg" srcset="assets/story/page-04.jpg 1x, assets/story/page-04-hi.jpg 2x" alt="Our Directions" loading="lazy" /></div>
+          </div>
+        </div>
+        <div class="dots" id="dots" aria-label="Page indicators"></div>
+
+        <div class="story-thumbs" id="thumbs">
+          <button type="button" data-i="0" aria-label="Cover"><img src="assets/story/page-01.jpg" alt="" /></button>
+          <button type="button" data-i="1" aria-label="Orphans"><img src="assets/story/page-02.jpg" alt="" /></button>
+          <button type="button" data-i="2" aria-label="Project 911"><img src="assets/story/page-03.jpg" alt="" /></button>
+          <button type="button" data-i="3" aria-label="Directions"><img src="assets/story/page-04.jpg" alt="" /></button>
+        </div>
+
+        <div class="bridge">
+          <h2>Ready to take part?</h2>
+          <p>See detailed needs: Mobile Clinic, 911, psychiatry, dentistry, education — and how you can help.</p>
+          <button type="button" class="btn btn-primary" id="go-needs-2">Continue to Needs &amp; Vision</button>
         </div>
       </div>
     </section>
 
-    <!-- 02 -->
-    <section class="block" id="s02">
-      <div class="colnum">02 · Project</div>
-      <h2 class="col-title">Mobile Clinic</h2>
-      <p class="body"><strong>Essence:</strong> preaching the Gospel through medical ministry — in places with no qualified medical care, where people have suffered because of the war, and wherever the Holy Spirit calls us in a special way.</p>
-      <p class="body"><strong>Services for patients:</strong> general practitioner, dentist, gynecologist, ultrasound, laboratory tests, cardiologist, orthopedist, and more.</p>
-      <div class="stats cols-3">
-        <div class="cell"><div class="num">234</div><div class="lbl">Trips in 4 years</div></div>
-        <div class="cell"><div class="num">17,000+</div><div class="lbl">Patients served</div></div>
-        <div class="cell"><div class="num">56,000+</div><div class="lbl">Services provided</div></div>
-      </div>
-      <p class="body">Today the need is <strong>100+ trips</strong>, but with current resources we can make only two per month. <strong>2 per month = 24 per year.</strong> We believe that with your help we will reach this goal.</p>
-      <div class="ask">
-        <div class="ask-label">An investment in lives</div>
-        <div class="ask-num">$84,000 / year</div>
-        <div class="ask-sub">One trip $3,500 × 24 trips per year</div>
-      </div>
-      <div class="need-card">
-        <div class="need-head">
-          <span class="need-label">Vehicle maintenance</span>
-          <span class="need-price">$37,000</span>
+    <!-- NEEDS VIEW -->
+    <section class="view" id="view-needs" role="tabpanel" aria-labelledby="tab-needs">
+      <nav class="needs-nav" aria-label="Needs sections">
+        <div class="needs-nav-inner">
+          <a href="#s01">01 Who we are</a>
+          <a href="#s02">02 Mobile Clinic</a>
+          <a href="#s03">03 911 + Orphans</a>
+          <a href="#s04">04 Psychiatry</a>
+          <a href="#s05">05 Dentistry</a>
+          <a href="#s06">06 Education</a>
         </div>
-        <ul class="need-list">
-          <li>New tires for trucks and 2 ambulances</li>
-          <li>Oil and filter changes</li>
-          <li>Chassis and engine repairs</li>
-          <li>Ambulance electrical work</li>
-          <li>Insurance</li>
-          <li>Parking</li>
-        </ul>
-      </div>
+      </nav>
+
+      <main class="needs-main">
+        <section class="hero">
+          <h1>Needs &amp; Vision</h1>
+          <p>A clinic that looks to Christ — ministry results, urgent needs, and ways for you to take part.</p>
+        </section>
+
+        <section class="block" id="s01">
+          <div class="colnum">01 · Who we are</div>
+          <h2 class="col-title">A clinic that looks to Christ</h2>
+          <p class="hook">We do not fix our eyes on war, disasters, or crises — we look to Christ. Holding His hand, we extend the other to our neighbor.</p>
+          <p class="body">Behind every number and every dollar stands a <strong>person</strong> — with their own story, losses, fears, and hopes. Throughout the last four extremely difficult years, God has worked miracles through every department of the clinic and every member of our team.</p>
+          <div class="sect">Spiritual fruit of ministry</div>
+          <div class="stats cols-2">
+            <div class="cell"><div class="num">15,151</div><div class="lbl">People surveyed</div></div>
+            <div class="cell"><div class="num">6,184</div><div class="lbl">Asked for prayer support</div></div>
+            <div class="cell"><div class="num">3,359</div><div class="lbl">Agreed to Bible study</div></div>
+            <div class="cell"><div class="num">357</div><div class="lbl">Towns and villages</div></div>
+          </div>
+          <div class="ask">
+            <div class="ask-label">Support Us · Ukraine Crisis Fund</div>
+            <div class="qr-line">
+              <img src="assets/qr-support.png" alt="QR Support Us" />
+              <div class="ask-sub">Scan the QR code to become a part of what God is already doing. Next: projects, needs, and ways for you to take part →</div>
+            </div>
+          </div>
+        </section>
+
+        <section class="block" id="s02">
+          <div class="colnum">02 · Project</div>
+          <h2 class="col-title">Mobile Clinic</h2>
+          <p class="body"><strong>Essence:</strong> preaching the Gospel through medical ministry — in places with no qualified medical care, where people have suffered because of the war, and wherever the Holy Spirit calls us in a special way.</p>
+          <p class="body"><strong>Services for patients:</strong> general practitioner, dentist, gynecologist, ultrasound, laboratory tests, cardiologist, orthopedist, and more.</p>
+          <div class="stats cols-3">
+            <div class="cell"><div class="num">234</div><div class="lbl">Trips in 4 years</div></div>
+            <div class="cell"><div class="num">17,000+</div><div class="lbl">Patients served</div></div>
+            <div class="cell"><div class="num">56,000+</div><div class="lbl">Services provided</div></div>
+          </div>
+          <p class="body">Today the need is <strong>100+ trips</strong>, but with current resources we can make only two per month. <strong>2 per month = 24 per year.</strong> We believe that with your help we will reach this goal.</p>
+          <div class="ask">
+            <div class="ask-label">An investment in lives</div>
+            <div class="ask-num">$84,000 / year</div>
+            <div class="ask-sub">One trip $3,500 × 24 trips per year</div>
+          </div>
+          <div class="need-card">
+            <div class="need-head">
+              <span class="need-label">Vehicle maintenance</span>
+              <span class="need-price">$37,000</span>
+            </div>
+            <ul class="need-list">
+              <li>New tires for trucks and 2 ambulances</li>
+              <li>Oil and filter changes</li>
+              <li>Chassis and engine repairs</li>
+              <li>Ambulance electrical work</li>
+              <li>Insurance</li>
+              <li>Parking</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="block" id="s03">
+          <div class="colnum">03 · Ministry</div>
+          <h2 class="col-title">911 + Orphans</h2>
+          <p class="body"><strong>911 — help for those who have experienced loss.</strong> We help people find balance, return to normal family life, and discover new meaning: work, relationships, community. And to come to know Christ as their personal Savior and Healer.</p>
+          <div class="stats cols-3">
+            <div class="cell"><div class="num">31</div><div class="lbl">Treated in 15 months</div></div>
+            <div class="cell"><div class="num">93</div><div class="lbl">People per year — goal</div></div>
+            <div class="cell"><div class="num">$1,000</div><div class="lbl">10-day treatment course</div></div>
+          </div>
+          <div class="ask">
+            <div class="ask-label">Goal — three times more people</div>
+            <div class="ask-num">$93,000</div>
+            <div class="ask-sub">Over the next 15 months we want to receive 3 times more people in need.</div>
+          </div>
+          <p class="verse">"Religion that God our Father accepts as pure and faultless is this: to look after orphans and widows in their distress and to keep oneself from being polluted by the world." <span class="ref">James 1:27</span></p>
+          <p class="body"><strong>Ministry to orphans:</strong> mobile clinic visits to orphanages and transporting children to our clinic — general, psychological, and dental care. A chaplain provides spiritual support for every child.</p>
+          <div class="ask">
+            <div class="ask-label">72 children are waiting for treatment</div>
+            <div class="ask-num">$121,800 <span style="font-size:16px;font-weight:600;opacity:.85">still needed</span></div>
+            <div class="progress">
+              <div class="track"><div class="fill"></div></div>
+              <div class="plabels"><span>Funded $22,200</span><span>Total $144,000</span></div>
+            </div>
+            <div class="ask-sub">Dental treatment for 72 children.<span class="ps">P.S. And this is only one of hundreds of boarding institutions.</span></div>
+          </div>
+        </section>
+
+        <section class="block" id="s04">
+          <div class="colnum">04 · Clinic</div>
+          <h2 class="col-title">Psychiatry</h2>
+          <p class="body">A modern medical approach united with Christian values addresses the patient's problem comprehensively. In our inpatient unit, patients receive qualified care in a Christian environment — and this approach has repeatedly led people to church and baptism.</p>
+          <div class="sect">Needed for Project 911 and quality treatment</div>
+          <div class="row"><span class="n">Ward renovation</span><span class="p">$30,000</span></div>
+          <div class="row"><span class="n">Anesthesia machine</span><span class="p">$50,000</span></div>
+          <div class="row"><span class="n">Infusion pump</span><span class="p">$2,000</span></div>
+          <div class="row"><span class="n">Capnograph</span><span class="p">$2,500</span></div>
+          <div class="row"><span class="n">Plasmapheresis</span><span class="p">$30,000</span></div>
+          <div class="row"><span class="n">TMS<small>good $70,000 · best $180,000</small></span><span class="p">$70–180k</span></div>
+          <div class="row"><span class="n">EEG<small>good $14,000 · best $18,000</small></span><span class="p">$14–18k</span></div>
+          <div class="sum-box twin">
+            <div class="sum-item">
+              <div class="sum-label">Total · Good</div>
+              <div class="sum-val">$198,500</div>
+              <div class="sum-hint">TMS + EEG · good</div>
+            </div>
+            <div class="sum-item gold">
+              <div class="sum-label">Total · Best</div>
+              <div class="sum-val">$312,500</div>
+              <div class="sum-hint">TMS + EEG · best</div>
+            </div>
+          </div>
+          <div class="note-card">
+            <p>A comprehensive approach — <strong>body, soul, and spirit</strong>: modern medicine and biblical values restoring a person together.</p>
+          </div>
+        </section>
+
+        <section class="block" id="s05">
+          <div class="colnum">05 · Clinic</div>
+          <h2 class="col-title">Dentistry</h2>
+          <p class="body">"For people, as unto God" — the principle of every dentist in our clinic. Professionalism, quality, service — for adults and children. All we lack is:</p>
+          <div class="sect">Clinical equipment</div>
+          <div class="row"><span class="n">Headlight loupes · 2 units</span><span class="p">$6,000</span></div>
+          <div class="row"><span class="n">Camera with flash</span><span class="p">$5,000</span></div>
+          <div class="row"><span class="n">Intraoral camera</span><span class="p">$1,000</span></div>
+          <div class="row"><span class="n">Vacuum former</span><span class="p">$2,000</span></div>
+          <div class="sect">Digital dentistry</div>
+          <div class="row"><span class="n">3D printer<small>+ bath and polymerizer</small></span><span class="p">$16,000</span></div>
+          <div class="row"><span class="n">Milling machine (mini)<small>+ crystallization furnace</small></span><span class="p">$42,000</span></div>
+          <div class="row"><span class="n">AIR-FLOW Prophylaxis Master</span><span class="p">$12,000</span></div>
+          <div class="row"><span class="n">Beyond whitening</span><span class="p">$8,000</span></div>
+          <div class="row"><span class="n">Diathermocoagulator</span><span class="p">$2,000</span></div>
+          <div class="row"><span class="n">Melag thermal disinfector</span><span class="p">$15,000</span></div>
+          <div class="sum-box single">
+            <div class="sum-item">
+              <div class="sum-label">Total amount</div>
+              <div class="sum-val">$109,000</div>
+            </div>
+          </div>
+          <div class="note-card">
+            <p>With this equipment we will serve more excellently — <strong>for patients, for orphans, and for God</strong>.</p>
+          </div>
+        </section>
+
+        <section class="block" id="s06">
+          <div class="colnum">06 · Growth</div>
+          <h2 class="col-title">Education</h2>
+          <p class="body"><strong>New day — new challenges — new knowledge.</strong> For spiritual growth — daily prayer at 2:00 PM. For professional growth — training for doctors and the administrative team:</p>
+          <div class="row"><span class="n">Psychiatry: CBT<small>4 doctors · 4 years</small></span><span class="p">$32,000</span></div>
+          <div class="row"><span class="n">Biblical psychotherapy<small>2 people · 1 year</small></span><span class="p">$1,000</span></div>
+          <div class="row"><span class="n">Electroconvulsive therapy</span><span class="p">$7,000</span></div>
+          <div class="row"><span class="n">Anesthesiology<small>pediatric, ketamine, ECT</small></span><span class="p">$5,000</span></div>
+          <div class="row"><span class="n">Hysteroscopy · training + device</span><span class="p">$8,000</span></div>
+          <div class="row"><span class="n">Gynecologist training</span><span class="p">$3,500</span></div>
+          <div class="row"><span class="n">Dental training</span><span class="p">$8,000</span></div>
+          <div class="row"><span class="n">Nurses</span><span class="p">$2,000</span></div>
+          <div class="row"><span class="n">Administrators</span><span class="p">$4,000</span></div>
+          <div class="row"><span class="n">Legal support<small>documentation audit</small></span><span class="p">$8,000</span></div>
+          <div class="row"><span class="n">Managers · KBS<small>5 managers</small></span><span class="p">$5,000</span></div>
+          <div class="sum-box single">
+            <div class="sum-item gold">
+              <div class="sum-label">Total amount</div>
+              <div class="sum-val">$83,500</div>
+            </div>
+          </div>
+          <p class="verse">"We believe that knowledge united with the Holy Spirit and God's power can work even greater miracles in people's lives."</p>
+        </section>
+
+        <p class="footer">Angelia Clinic · Ukraine · Digital booklet for conference guests</p>
+      </main>
     </section>
+  </div>
 
-    <!-- 03 -->
-    <section class="block" id="s03">
-      <div class="colnum">03 · Ministry</div>
-      <h2 class="col-title">911 + Orphans</h2>
-      <p class="body"><strong>911 — help for those who have experienced loss.</strong> We help people find balance, return to normal family life, and discover new meaning: work, relationships, community. And to come to know Christ as their personal Savior and Healer.</p>
-      <div class="stats cols-3">
-        <div class="cell"><div class="num">31</div><div class="lbl">Treated in 15 months</div></div>
-        <div class="cell"><div class="num">93</div><div class="lbl">People per year — goal</div></div>
-        <div class="cell"><div class="num">$1,000</div><div class="lbl">10-day treatment course</div></div>
-      </div>
-      <div class="ask">
-        <div class="ask-label">Goal — three times more people</div>
-        <div class="ask-num">$93,000</div>
-        <div class="ask-sub">Over the next 15 months we want to receive 3 times more people in need.</div>
-      </div>
-      <p class="verse">"Religion that God our Father accepts as pure and faultless is this: to look after orphans and widows in their distress and to keep oneself from being polluted by the world." <span class="ref">James 1:27</span></p>
-      <p class="body"><strong>Ministry to orphans:</strong> mobile clinic visits to orphanages and transporting children to our clinic — general, psychological, and dental care. A chaplain provides spiritual support for every child.</p>
-      <div class="ask">
-        <div class="ask-label">72 children are waiting for treatment</div>
-        <div class="ask-num">$121,800 <span style="font-size:16px;font-weight:600;opacity:.85">still needed</span></div>
-        <div class="progress">
-          <div class="track"><div class="fill"></div></div>
-          <div class="plabels"><span>Funded $22,200</span><span>Total $144,000</span></div>
-        </div>
-        <div class="ask-sub">Dental treatment for 72 children.<span class="ps">P.S. And this is only one of hundreds of boarding institutions.</span></div>
-      </div>
-    </section>
+  <a class="fab" href="#" id="fab-top">Top</a>
 
-    <!-- 04 -->
-    <section class="block" id="s04">
-      <div class="colnum">04 · Clinic</div>
-      <h2 class="col-title">Psychiatry</h2>
-      <p class="body">A modern medical approach united with Christian values addresses the patient's problem comprehensively. In our inpatient unit, patients receive qualified care in a Christian environment — and this approach has repeatedly led people to church and baptism.</p>
-      <div class="sect">Needed for Project 911 and quality treatment</div>
-      <div class="row"><span class="n">Ward renovation</span><span class="p">$30,000</span></div>
-      <div class="row"><span class="n">Anesthesia machine</span><span class="p">$50,000</span></div>
-      <div class="row"><span class="n">Infusion pump</span><span class="p">$2,000</span></div>
-      <div class="row"><span class="n">Capnograph</span><span class="p">$2,500</span></div>
-      <div class="row"><span class="n">Plasmapheresis</span><span class="p">$30,000</span></div>
-      <div class="row"><span class="n">TMS<small>good $70,000 · best $180,000</small></span><span class="p">$70–180k</span></div>
-      <div class="row"><span class="n">EEG<small>good $14,000 · best $18,000</small></span><span class="p">$14–18k</span></div>
-      <div class="sum-box twin">
-        <div class="sum-item">
-          <div class="sum-label">Total · Good</div>
-          <div class="sum-val">$198,500</div>
-          <div class="sum-hint">TMS + EEG · good</div>
-        </div>
-        <div class="sum-item gold">
-          <div class="sum-label">Total · Best</div>
-          <div class="sum-val">$312,500</div>
-          <div class="sum-hint">TMS + EEG · best</div>
-        </div>
-      </div>
-      <div class="note-card">
-        <p>A comprehensive approach — <strong>body, soul, and spirit</strong>: modern medicine and biblical values restoring a person together.</p>
-      </div>
-    </section>
+  <script>
+    (function () {
+      var titles = ['Cover', 'Orphans Project', 'Project 911', 'Our Directions'];
+      var tabs = document.querySelectorAll('.mode button');
+      var views = {
+        story: document.getElementById('view-story'),
+        needs: document.getElementById('view-needs')
+      };
+      var track = document.getElementById('track');
+      var pages = track.querySelectorAll('.stage-page');
+      var prev = document.getElementById('prev');
+      var next = document.getElementById('next');
+      var label = document.getElementById('page-label');
+      var dots = document.getElementById('dots');
+      var thumbs = document.getElementById('thumbs');
+      var index = 0;
 
-    <!-- 05 -->
-    <section class="block" id="s05">
-      <div class="colnum">05 · Clinic</div>
-      <h2 class="col-title">Dentistry</h2>
-      <p class="body">"For people, as unto God" — the principle of every dentist in our clinic. Professionalism, quality, service — for adults and children. All we lack is:</p>
-      <div class="sect">Clinical equipment</div>
-      <div class="row"><span class="n">Headlight loupes · 2 units</span><span class="p">$6,000</span></div>
-      <div class="row"><span class="n">Camera with flash</span><span class="p">$5,000</span></div>
-      <div class="row"><span class="n">Intraoral camera</span><span class="p">$1,000</span></div>
-      <div class="row"><span class="n">Vacuum former</span><span class="p">$2,000</span></div>
-      <div class="sect">Digital dentistry</div>
-      <div class="row"><span class="n">3D printer<small>+ bath and polymerizer</small></span><span class="p">$16,000</span></div>
-      <div class="row"><span class="n">Milling machine (mini)<small>+ crystallization furnace</small></span><span class="p">$42,000</span></div>
-      <div class="row"><span class="n">AIR-FLOW Prophylaxis Master</span><span class="p">$12,000</span></div>
-      <div class="row"><span class="n">Beyond whitening</span><span class="p">$8,000</span></div>
-      <div class="row"><span class="n">Diathermocoagulator</span><span class="p">$2,000</span></div>
-      <div class="row"><span class="n">Melag thermal disinfector</span><span class="p">$15,000</span></div>
-      <div class="sum-box single">
-        <div class="sum-item">
-          <div class="sum-label">Total amount</div>
-          <div class="sum-val">$109,000</div>
-        </div>
-      </div>
-      <div class="note-card">
-        <p>With this equipment we will serve more excellently — <strong>for patients, for orphans, and for God</strong>.</p>
-      </div>
-    </section>
+      function showView(name) {
+        Object.keys(views).forEach(function (k) {
+          views[k].classList.toggle('active', k === name);
+        });
+        tabs.forEach(function (b) {
+          b.setAttribute('aria-selected', b.dataset.view === name ? 'true' : 'false');
+        });
+        if (name === 'needs') {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        } else {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+        history.replaceState(null, '', name === 'needs' ? '#needs' : '#story');
+      }
 
-    <!-- 06 -->
-    <section class="block" id="s06">
-      <div class="colnum">06 · Growth</div>
-      <h2 class="col-title">Education</h2>
-      <p class="body"><strong>New day — new challenges — new knowledge.</strong> For spiritual growth — daily prayer at 2:00 PM. For professional growth — training for doctors and the administrative team:</p>
-      <div class="row"><span class="n">Psychiatry: CBT<small>4 doctors · 4 years</small></span><span class="p">$32,000</span></div>
-      <div class="row"><span class="n">Biblical psychotherapy<small>2 people · 1 year</small></span><span class="p">$1,000</span></div>
-      <div class="row"><span class="n">Electroconvulsive therapy</span><span class="p">$7,000</span></div>
-      <div class="row"><span class="n">Anesthesiology<small>pediatric, ketamine, ECT</small></span><span class="p">$5,000</span></div>
-      <div class="row"><span class="n">Hysteroscopy · training + device</span><span class="p">$8,000</span></div>
-      <div class="row"><span class="n">Gynecologist training</span><span class="p">$3,500</span></div>
-      <div class="row"><span class="n">Dental training</span><span class="p">$8,000</span></div>
-      <div class="row"><span class="n">Nurses</span><span class="p">$2,000</span></div>
-      <div class="row"><span class="n">Administrators</span><span class="p">$4,000</span></div>
-      <div class="row"><span class="n">Legal support<small>documentation audit</small></span><span class="p">$8,000</span></div>
-      <div class="row"><span class="n">Managers · KBS<small>5 managers</small></span><span class="p">$5,000</span></div>
-      <div class="sum-box single">
-        <div class="sum-item gold">
-          <div class="sum-label">Total amount</div>
-          <div class="sum-val">$83,500</div>
-        </div>
-      </div>
-      <p class="verse">"We believe that knowledge united with the Holy Spirit and God's power can work even greater miracles in people's lives."</p>
-    </section>
+      tabs.forEach(function (btn) {
+        btn.addEventListener('click', function () { showView(btn.dataset.view); });
+      });
+      document.getElementById('go-needs').addEventListener('click', function () { showView('needs'); });
+      document.getElementById('go-needs-2').addEventListener('click', function () { showView('needs'); });
 
-    <p class="footer">Angelia Clinic · Ukraine · For conference guests — digital booklet</p>
-  </main>
+      titles.forEach(function (_, i) {
+        var d = document.createElement('button');
+        d.type = 'button';
+        d.setAttribute('aria-label', 'Go to page ' + (i + 1));
+        d.addEventListener('click', function () { go(i); });
+        dots.appendChild(d);
+      });
 
-  <a class="fab" href="#s01">Top</a>
+      function go(i) {
+        index = Math.max(0, Math.min(pages.length - 1, i));
+        pages[index].scrollIntoView({ behavior: 'smooth', inline: 'start', block: 'nearest' });
+        sync();
+      }
+
+      function sync() {
+        label.textContent = 'Page ' + (index + 1) + ' / ' + pages.length + ' · ' + titles[index];
+        prev.disabled = index === 0;
+        next.disabled = index === pages.length - 1;
+        dots.querySelectorAll('button').forEach(function (b, i) {
+          b.setAttribute('aria-current', i === index ? 'true' : 'false');
+        });
+        thumbs.querySelectorAll('button').forEach(function (b, i) {
+          b.setAttribute('aria-current', i === index ? 'true' : 'false');
+        });
+      }
+
+      prev.addEventListener('click', function () { go(index - 1); });
+      next.addEventListener('click', function () { go(index + 1); });
+      thumbs.querySelectorAll('button').forEach(function (b) {
+        b.addEventListener('click', function () { go(+b.dataset.i); });
+      });
+
+      track.addEventListener('scroll', function () {
+        var i = Math.round(track.scrollLeft / track.clientWidth);
+        if (i !== index && i >= 0 && i < pages.length) {
+          index = i;
+          sync();
+        }
+      }, { passive: true });
+
+      document.getElementById('fab-top').addEventListener('click', function (e) {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        if (views.story.classList.contains('active')) go(0);
+      });
+
+      if (location.hash === '#needs') showView('needs');
+      else showView('story');
+      sync();
+    })();
+  </script>
 </body>
 </html>
