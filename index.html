@@ -332,6 +332,60 @@
       width: 88px; height: 88px; background: #fff;
       border-radius: 10px; padding: 4px; flex-shrink: 0;
     }
+    .donate-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-top: 14px;
+      padding: 12px 18px;
+      border-radius: 999px;
+      background: var(--gold);
+      color: #1a140c;
+      text-decoration: none;
+      font: 800 13px/1 Manrope, sans-serif;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      position: relative;
+      z-index: 1;
+      box-shadow: 0 8px 20px rgba(0,0,0,.18);
+    }
+    .donate-cta:hover { filter: brightness(1.05); }
+    .donate-note {
+      margin-top: 8px;
+      font-size: 12px;
+      color: rgba(232,241,251,.85);
+      position: relative;
+      z-index: 1;
+    }
+    .fab-stack {
+      position: fixed;
+      right: 16px;
+      bottom: calc(16px + var(--safe-bottom));
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .fab-donor {
+      display: none;
+      background: var(--gold);
+      color: #1a140c;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 16px;
+      font: 800 12px/1 Manrope, sans-serif;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      box-shadow: 0 10px 24px rgba(168,136,79,.35);
+      text-decoration: none;
+      animation: popIn .35s ease;
+    }
+    .fab-donor.show { display: inline-flex; align-items: center; }
+    @keyframes popIn {
+      from { opacity: 0; transform: translateY(10px) scale(.96); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
     .progress { position: relative; z-index: 1; margin: 8px 0 6px; }
     .progress .track {
       height: 10px; border-radius: 999px;
@@ -425,8 +479,7 @@
       padding: 8px 8px 24px;
     }
     .fab {
-      position: fixed; right: 16px; bottom: calc(16px + var(--safe-bottom));
-      z-index: 60; background: var(--brand); color: #fff; border: none;
+      background: var(--brand); color: #fff; border: none;
       border-radius: 999px; padding: 12px 16px;
       font: 800 12px/1 Manrope, sans-serif; letter-spacing: .06em;
       text-transform: uppercase; box-shadow: 0 10px 24px rgba(0,61,122,.28);
@@ -501,7 +554,14 @@
         <div class="bridge">
           <h2>Ready to take part?</h2>
           <p>See detailed needs: Mobile Clinic, 911, psychiatry, dentistry, education — and how you can help.</p>
-          <button type="button" class="btn btn-primary" id="go-needs-2">Continue to Needs &amp; Vision</button>
+          <div class="story-actions">
+            <button type="button" class="btn btn-primary" id="go-needs-2">Continue to Needs &amp; Vision</button>
+            <a class="btn btn-ghost"
+               href="https://q.me-qr.com/nam7vwe2"
+               target="_blank"
+               rel="noopener noreferrer"
+               style="background:#c4a574;color:#1a140c;border:none">Become a donor</a>
+          </div>
         </div>
       </div>
     </section>
@@ -537,12 +597,19 @@
             <div class="cell"><div class="num">3,359</div><div class="lbl">Agreed to Bible study</div></div>
             <div class="cell"><div class="num">357</div><div class="lbl">Towns and villages</div></div>
           </div>
-          <div class="ask">
+          <div class="ask" id="donate">
             <div class="ask-label">Support Us · Ukraine Crisis Fund</div>
             <div class="qr-line">
               <img src="assets/qr-support.png" alt="QR Support Us" />
               <div class="ask-sub">Scan the QR code to become a part of what God is already doing. Next: projects, needs, and ways for you to take part →</div>
             </div>
+            <a class="donate-cta"
+               href="https://q.me-qr.com/nam7vwe2"
+               target="_blank"
+               rel="noopener noreferrer">
+              Become a donor
+            </a>
+            <div class="donate-note">Opens Ukraine Crisis Fund — the official page for gifts and transfers</div>
           </div>
         </section>
 
@@ -690,7 +757,13 @@
     </section>
   </div>
 
-  <a class="fab" href="#" id="fab-top">Top</a>
+  <div class="fab-stack">
+    <a class="fab-donor" id="fab-donor"
+       href="https://q.me-qr.com/nam7vwe2"
+       target="_blank"
+       rel="noopener noreferrer">Become a donor</a>
+    <a class="fab" href="#" id="fab-top">Top</a>
+  </div>
 
   <script>
     (function () {
@@ -716,12 +789,16 @@
         tabs.forEach(function (b) {
           b.setAttribute('aria-selected', b.dataset.view === name ? 'true' : 'false');
         });
-        if (name === 'needs') {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        } else {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
         history.replaceState(null, '', name === 'needs' ? '#needs' : '#story');
+        updateDonorFab();
+      }
+
+      var fabDonor = document.getElementById('fab-donor');
+      function updateDonorFab() {
+        var onNeeds = views.needs.classList.contains('active');
+        var scrolled = window.scrollY > 280;
+        fabDonor.classList.toggle('show', onNeeds && scrolled);
       }
 
       tabs.forEach(function (btn) {
@@ -775,10 +852,18 @@
         window.scrollTo({ top: 0, behavior: 'smooth' });
         if (views.story.classList.contains('active')) go(0);
       });
+      window.addEventListener('scroll', updateDonorFab, { passive: true });
 
-      if (location.hash === '#needs') showView('needs');
+      if (location.hash === '#needs' || location.hash === '#donate') showView('needs');
       else showView('story');
+      if (location.hash === '#donate') {
+        setTimeout(function () {
+          var el = document.getElementById('donate');
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 120);
+      }
       sync();
+      updateDonorFab();
     })();
   </script>
 </body>
